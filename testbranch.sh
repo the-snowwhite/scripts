@@ -80,6 +80,23 @@ sh autogen.sh
 
 make 
 
+# Check for sudo
+if which sudo >/dev/null 2>&1 ; then
+    if sudo -l make setuid >/dev/null 2>&1 ; then
+        sudo make setuid
+    else
+        echo "Cannot run \"sudo make setuid\""
+        echo "Please run the following commands as root:"
+        echo "  cd $SCRATCH/src"
+        echo "  sudo make setuid"
+    fi
+else
+    echo "sudo not found"
+    echo "please run the following commands as root:"
+    echo "  cd $SCRATCH/src"
+    echo "  sudo make setuid"
+fi
+
 echo make completed
 
 # check the system configuration (logging etc)
@@ -87,10 +104,6 @@ echo make completed
 ../scripts/check-system-configuration.sh
 
 echo "looks like the build succeeded!"
-echo "you now need to run:"
-
-echo "  cd $SCRATCH/src"
-echo "  sudo make setuid"
-
+echo ""
 echo "to run linuxcnc from this build, please execute first:"
 echo ". $SCRATCH/scripts/rip-environment" 
