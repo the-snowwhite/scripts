@@ -55,6 +55,10 @@ set -x
 echo "please review and edit this script before use."
 exit 1
 
+# prerequisits for cloning Machinekit
+# git
+sudo apt-get install git-core git-gui dpkg-dev
+
 # ----------- end configurable options --------
 
 # fail the script on any error
@@ -72,11 +76,9 @@ fi
 
 git clone -b "$BRANCH" -o "$ORIGIN" --depth 1 "$REPO" "$SCRATCH"
 
-# prerequisits for building Machinekit
-# git
-sudo apt-get install git-core git-gui dpkg-dev
-# dependencies from https://github.com/mhaberler/asciidoc-sandbox/wiki/Machinekit-Build-for-Multiple-RT-Operating-Systems#installation
-sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libtk-img
+# prerequisits for building from a fresh debian distro
+# dependencies + more from https://github.com/mhaberler/asciidoc-sandbox/wiki/Machinekit-Build-for-Multiple-RT-Operating-Systems#installation
+sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img
 
 # make sure some files are in place to finish the build without errors
 cd "$SCRATCH/src"
@@ -136,3 +138,9 @@ echo "looks like the build succeeded!"
 echo ""
 echo "to run linuxcnc from this build, please execute first:"
 echo ". $SCRATCH/scripts/rip-environment" 
+echo ""
+echo ""
+echo "Please set your name and email for git with:"
+echo "git config --global user.name yourname"
+echo "git config --global user.email \"youremail\""
+
