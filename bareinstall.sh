@@ -78,7 +78,7 @@ git clone -b "$BRANCH" -o "$ORIGIN" --depth 1 "$REPO" "$SCRATCH"
 
 # prerequisits for building from a fresh debian distro
 # dependencies + more from https://github.com/mhaberler/asciidoc-sandbox/wiki/Machinekit-Build-for-Multiple-RT-Operating-Systems#installation
-sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img python-opengl glade
+sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img python-opengl glade python-xlib python-gtkglext1 python-configobj python-vte libglade2-dev python-glade2 python-gtksourceview2 libncurses-dev libreadline-dev libboost-serialization-dev libboost-thread-dev libxenomai-dev
 # make sure some files are in place to finish the build without errors
 cd "$SCRATCH/src"
 sudo cp ./rtapi/rsyslogd-linuxcnc.conf /etc/rsyslog.d/linuxcnc.conf
@@ -134,15 +134,12 @@ echo make completed
 ../scripts/check-system-configuration.sh
 
 # no more echo commands during
-set -v
+set +x
 
 echo "looks like the build succeeded!"
 echo ""
 echo "to run linuxcnc from this build, please execute first:"
 echo ". $SCRATCH/scripts/rip-environment" 
-echo ""
-echo "Let me do that for you now:"
-". $SCRATCH/scripts/rip-environment"
 echo ""
 echo "Please set your name and email for git with:"
 echo "git config --global user.name yourname"
