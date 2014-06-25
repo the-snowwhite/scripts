@@ -78,8 +78,7 @@ git clone -b "$BRANCH" -o "$ORIGIN" --depth 1 "$REPO" "$SCRATCH"
 
 # prerequisits for building from a fresh debian distro
 # dependencies + more from https://github.com/mhaberler/asciidoc-sandbox/wiki/Machinekit-Build-for-Multiple-RT-Operating-Systems#installation
-sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img
-
+sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img python-opengl glade
 # make sure some files are in place to finish the build without errors
 cd "$SCRATCH/src"
 sudo cp ./rtapi/rsyslogd-linuxcnc.conf /etc/rsyslog.d/linuxcnc.conf
@@ -96,13 +95,13 @@ echo now in directory: `pwd`
 # QA: log what just was checked out
 
 # log the origin
-git remote -v
+# git remote -v
 
 # show the top commit 
-git log -n1
+# git log -n1
 
 # show that the branch has properly been checked out
-git status
+# git status
 
 # configure and build
 sh autogen.sh
@@ -133,6 +132,9 @@ echo make completed
 # check the system configuration (logging etc)
 
 ../scripts/check-system-configuration.sh
+
+# no more echo commands during
+set -v
 
 echo "looks like the build succeeded!"
 echo ""
