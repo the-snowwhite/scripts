@@ -85,7 +85,7 @@ sudo cp ./rtapi/rsyslogd-linuxcnc.conf /etc/rsyslog.d/linuxcnc.conf
 sudo touch  /var/log/linuxcnc.log
 sudo chmod 644 /var/log/linuxcnc.log
 sudo service rsyslog restart
-sudo cp ./rtapi/shmdrv/limits.d-linuxcnc.conf /etc/security/limits.d/linuxcnc.conf
+sudo cp ./rtapi/shmdrv/limits.d-machinekit.conf /etc/security/limits.d/linuxcnc.conf
 sudo cp ./rtapi/shmdrv/shmdrv.rules /etc/udev/rules.d/50-LINUXCNC-shmdrv.rules
 
 echo building in "$SCRATCH/src"
