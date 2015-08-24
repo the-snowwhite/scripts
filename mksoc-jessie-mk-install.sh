@@ -7,6 +7,12 @@
 # there are no build prerequisits installed
 # for more info see https://github.com/machinekit/machinekit/issues/229
 
+# first download and install czmq from:
+# https://packages.debian.org/source/sid/czmq 
+# 
+# sudo dpkg -i libczmq3_3.0.2-1_armhf.deb  libczmq-dev_3.0.2-1_armhf.deb
+# sudo apt-get install -f
+
 # before running this script, make sure that the user running this script has
 # sudo privileges. For instance, if the user is "machinekit" then do:
 # $ su
