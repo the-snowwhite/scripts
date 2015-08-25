@@ -7,13 +7,13 @@
 # there are no build prerequisits installed
 # for more info see https://github.com/machinekit/machinekit/issues/229
 
-# first download and install czmq from:
+# ? first download and install czmq from:
 # https://packages.debian.org/source/sid/czmq 
 # 
 # sudo dpkg -i libczmq3_3.0.2-1_armhf.deb  libczmq-dev_3.0.2-1_armhf.deb
 # sudo apt-get install -f
 
-# then libwebsockets 1.3
+# ? then libwebsockets 1.3
 
 # before running this script, make sure that the user running this script has
 # sudo privileges. For instance, if the user is "machinekit" then do:
@@ -94,7 +94,7 @@ fi
 
 # prerequisits for building from a fresh debian distro
 # dependencies + more from https://github.com/mhaberler/asciidoc-sandbox/wiki/Machinekit-Build-for-Multiple-RT-Operating-Systems#installation
-sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img python-opengl glade python-xlib python-gtkglext1 python-configobj python-vte libglade2-dev python-glade2 python-gtksourceview2 libncurses-dev libreadline-dev libboost-serialization-dev libboost-thread-dev libjansson-dev lsb-release git dpkg-dev rsyslog automake uuid-runtime ccache  avahi-daemon avahi-discover libnss-mdns bc cython
+sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-dev autoconf pkg-config glib-2.0 gtk+-2.0 tcllib tcl-dev tk-dev bwidget libxaw7-dev libreadline6-dev python-tk libqt4-opengl libqt4-opengl-dev libtk-img python-opengl glade python-xlib python-gtkglext1 python-configobj python-vte libglade2-dev python-glade2 python-gtksourceview2 libncurses-dev libreadline-dev libboost-serialization-dev libboost-thread-dev libjansson-dev lsb-release git dpkg-dev rsyslog automake uuid-runtime ccache  avahi-daemon avahi-discover libnss-mdns bc cython netcat
 
 #sudo sh -c \
 #    "echo 'deb http://deb.dovetail-automata.com jessie main' > \
@@ -105,7 +105,13 @@ sudo apt-get install libudev-dev libmodbus-dev libboost-python-dev libusb-1.0-0-
 
 #sudo apt-get install python-zmq libczmq-dev
 #sudo apt-get install libzmq3-dev 
+cd ${HOME}
+sudo dpkg -i libwebsockets3_1.3-1.deb libwebsockets-dev_1.3-1.deb
+sudo apt-get install -f
+
 sudo apt-get install python-zmq
+sudo dpkg -i libczmq2_2.2.0-0.5.deb  libczmq-dev_2.2.0-0.5.deb
+sudo apt-get install -f
 
 
 # setup ccache:
@@ -151,7 +157,9 @@ sh autogen.sh
 
 ./configure ${CONFIG_ARGS}
 
-make -j $CORES
+#make -j $CORES
+# mod to conserve memory and avoid gcc crash
+make OPT=-O0 -j1
 
 # Check for sudo
 if which sudo >/dev/null 2>&1 ; then
